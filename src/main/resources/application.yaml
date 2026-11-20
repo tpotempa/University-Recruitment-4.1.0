@@ -1,0 +1,72 @@
+server:
+  port: 8090
+
+camunda:
+  client:
+    mode: selfmanaged
+    auth:
+      method: none
+#   mode: saas
+#    auth:
+#     client-id: ${CAMUNDA_CLIENT_ID}
+#     client-secret: ${CAMUNDA_CLIENT_SECRET}
+#     cluster-id: ${CAMUNDA_CLUSTER_ID}
+#     region: ${CAMUNDA_REGION}
+    enabled: true
+    grpc-address: "http://127.0.0.1:26500"
+    rest-address: "http://127.0.0.1:8080"
+    worker:
+      defaults:
+        poll-interval: PT0.1S
+    deployment:
+      enabled: true
+
+  spring:
+    boot:
+      enable-auto-deployment: true
+
+  logging:
+    level:
+      io:
+        camunda: DEBUG
+
+database:
+  postgresql:
+    dburl: ${DB_URL}
+    dbuser: ${DB_USERNAME}
+    dbpassword: ${DB_PASSWORD}
+
+spring:
+  config:
+    import: optional:file:./.env[.properties]
+  mail:
+    host: ${PRIMARY_MAIL_HOST}
+    port: ${PRIMARY_MAIL_PORT}
+    username: ${PRIMARY_MAIL_USERNAME}
+    password: ${PRIMARY_MAIL_PASSWORD}
+    sendername: ${PRIMARY_MAIL_SENDER_NAME}
+    sendermail: ${PRIMARY_MAIL_SENDER_MAIL}
+    properties:
+        mail:
+          smtp:
+            auth: true
+            starttls:
+              enable: true
+
+radon:
+  nauka:
+    gov:
+      pl:
+        url: "https://radon.nauka.gov.pl/opendata/polon/courses?resultNumbers=100&leadingInstitutionUuid=df584ad3-5474-4618-812a-2e10b03b48c0"
+        apiKey: ""
+
+mail:
+  atar:
+    edu:
+      pl:
+        secondary-host: ${SECONDARY_MAIL_HOST}
+        secondary-port: ${SECONDARY_MAIL_PORT}
+        secondary-username: ${SECONDARY_MAIL_USERNAME}
+        secondary-password: ${SECONDARY_MAIL_PASSWORD}
+        secondary-sendername: ${SECONDARY_MAIL_SENDER_MAIL}
+        secondary-sendermail: ${SECONDARY_MAIL_SENDER_NAME}
